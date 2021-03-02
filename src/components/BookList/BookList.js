@@ -54,7 +54,7 @@ function BookList({ onBook }) {
       .map((mainResourse) => (
         <p key={mainResourse.sort}>
           {mainResourse.isset ? (
-            <button onClick={() => onBook(linkBook(mainResourse.identifier))}>
+            <button onClick={() => onBook(linkBook(mainResourse.identifier), state.resources[0])}>
               {mainResourse.title}
             </button>
           ) : (

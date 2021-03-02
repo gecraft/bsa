@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { AppBar, Toolbar, Typography, InputBase } from '@material-ui/core';
-
-import SelectLanguage from './SelectLanguage/SelectLanguage';
-
 import SearchIcon from '@material-ui/icons/Search';
 
+import { UserMenu } from 'gitea-react-toolkit';
+
+import SelectLanguage from './SelectLanguage/SelectLanguage';
 import useStyles from './style';
 
 const MenuItems = [
@@ -44,6 +43,8 @@ export default function MenuBar() {
             />
           </div>
           <SelectLanguage />
+
+          <UserMenu/>
         </Toolbar>
       </AppBar>
     </div>
