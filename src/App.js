@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import {
   ResourcesContextProvider,
   ReferenceSelectedContextProvider,
 } from 'scripture-resources-rcl';
 
+import { AppContext } from './App.context';
 import { Workspace } from 'resource-workspace-rcl';
 import Chapter from './components/Chapter/Chapter';
 import SupportTQ from './components/SupportTQ/SupportTQ';
@@ -53,22 +54,13 @@ const useStyles = makeStyles(() => ({
   dragIndicator: {},
 }));
 
-const _absoluteLayout = [
-  { w: 4, h: 5, x: 0, y: 0, i: '1' },
-  { w: 4, h: 5, x: 4, y: 0, i: '2' },
-  { w: 4, h: 5, x: 8, y: 0, i: '3' },
-  { w: 6, h: 3, x: 0, y: 6, i: '4' },
-  { w: 6, h: 3, x: 6, y: 6, i: '5' },
-];
-
-const _resourceLinks = ['bsa/ru/rlob/master', 'bsa/ru/rsob/master', 'bsa/ru/rob/master'];
-//const _resourceLinks = ['unfoldingWord/en/ult/master', 'unfoldingWord/en/ust/master', 'bsa/ru/rob/master'];
-
 export default function App(params) {
-  const [resourceLinks, setResourceLinks] = useState(_resourceLinks);
-  const [resources, setResources] = useState([]);
-  const [showBookSelect, setShowBookSelect] = React.useState(false);
-  const [absoluteLayout, setAbsoluteLayout] = useState(_absoluteLayout);
+  
+const { state, actions } = useContext(AppContext);
+const { resourceLinks, absoluteLayout, resources } = state;
+const { addResourceLink, removeResourceLink, setAbsoluteLayout, setResourceLinks, setResources } = actions;
+
+const [showBookSelect, setShowBookSelect] = React.useState(false);
   const [check, setCheck] = React.useState({
     checkedA: false,
   });
@@ -100,12 +92,17 @@ export default function App(params) {
     });
   };
   const onClose = (index) => {
-    setAbsoluteLayout(layout.absolute.filter((el) => el.i !== index));
+    // TODO: use reducer.
+    //setAbsoluteLayout(layout.absolute.filter((el) => el.i !== index));
+    removeResourceLink(index);
   };
   function handleAddNew() {
-    setAbsoluteLayout(
-      absoluteLayout.concat({ w: 4, h: 5, x: 0, y: 0, i: absoluteLayout + 1 })
-    );
+    // setAbsoluteLayout(
+    //   absoluteLayout.concat({ w: 4, h: 5, x: 0, y: 0, i: absoluteLayout + 1 })
+    // );
+    
+    // TODO: pick which resource you add:
+    actions.addResourceLink('bsa/ru/rlob/master');
     handleClose();
   }
   const handleClick = (event) => {
@@ -129,7 +126,7 @@ export default function App(params) {
       <ResourcesContextProvider
         reference={referenceSelected}
         resourceLinks={resourceLinks}
-        defaultResourceLinks={_resourceLinks}
+        defaultResourceLinks={resourceLinks}
         onResourceLinks={setResourceLinks}
         resources={resources}
         onResources={setResources}
@@ -236,7 +233,7 @@ export default function App(params) {
       <ResourcesContextProvider
         reference={referenceSelected}
         resourceLinks={resourceLinks}
-        defaultResourceLinks={_resourceLinks}
+        defaultResourceLinks={resourceLinks}
         onResourceLinks={setResourceLinks}
         resources={resources}
         onResources={setResources}
