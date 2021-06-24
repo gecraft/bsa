@@ -82,7 +82,7 @@ export const resourcesList = {
   ru_tn: {
     link: 'Door43-Catalog/ru_tn/master',
     branch: 'master',
-    subject: 'Bupport',
+    subject: 'Support',
     languageId: 'ru',
     resourceId: 'tn',
     owner: 'Door43-Catalog',
@@ -90,7 +90,7 @@ export const resourcesList = {
   ru_tq: {
     link: 'Door43-Catalog/ru_tq/master',
     branch: 'master',
-    subject: 'Bupport',
+    subject: 'Support',
     languageId: 'ru',
     resourceId: 'tq',
     owner: 'Door43-Catalog',
@@ -98,7 +98,7 @@ export const resourcesList = {
   en_tn: {
     link: 'Door43-Catalog/en_tn/master',
     branch: 'master',
-    subject: 'Bupport',
+    subject: 'Support',
     languageId: 'en',
     resourceId: 'tn',
     owner: 'Door43-Catalog',
@@ -106,7 +106,7 @@ export const resourcesList = {
   en_tq: {
     link: 'Door43-Catalog/en_tq/master',
     branch: 'master',
-    subject: 'Bupport',
+    subject: 'Support',
     languageId: 'en',
     resourceId: 'tq',
     owner: 'Door43-Catalog',
@@ -114,7 +114,7 @@ export const resourcesList = {
   /*  tw: {
     link: 'Door43-Catalog/ru_tw/master',
     branch: 'master',
-    subject: 'Bupport',
+    subject: 'Support',
     languageId: 'ru',
     resourceId: 'tw',
     owner: 'Door43-Catalog',
