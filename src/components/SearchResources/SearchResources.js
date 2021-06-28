@@ -37,7 +37,7 @@ function SearchResources({ anchorEl, onClose, open }) {
     axios
       .create({
         adapter: setupCache({
-          maxAge: 15 * 60 * 1000,
+          maxAge: 60 * 60 * 1000,
         }).adapter,
       })
       .get('https://git.door43.org/api/v1/repos/search?owner=Door43-catalog')
