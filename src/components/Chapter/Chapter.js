@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { Card, useContent } from 'translation-helps-rcl';
 
 import { AppContext } from '../../App.context';
-import { server } from '../../config';
 import VerseMenu from './VerseMenu';
 import ChapterContent from './ChapterContent';
+
+import { server } from '../../config';
 
 const initialPosition = {
   mouseX: null,

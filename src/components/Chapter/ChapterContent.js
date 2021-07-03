@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import { Verse } from 'scripture-resources-rcl';
-import { getVerseText } from '../../helper';
-import { AppContext } from '../../App.context';
 import { useTranslation } from 'react-i18next';
+
+import { AppContext } from '../../App.context';
+
+import { getVerseText } from '../../helper';
 
 function ChapterContent({ chapter, reference, setPosition, content, setChapter, type }) {
   const { t } = useTranslation();
-  console.log(content);
   const [verses, setVerses] = useState();
   const {
     actions: { setReferenceBlock, setReferenceSelected },
@@ -20,7 +22,6 @@ function ChapterContent({ chapter, reference, setPosition, content, setChapter, 
       content.resource.project
         .parseUsfm()
         .then((result) => {
-          console.log({ result: result });
           if (Object.keys(result.json.chapters).length > 0) {
             setChapter(result.json.chapters[reference.chapter]);
           }
@@ -30,15 +31,16 @@ function ChapterContent({ chapter, reference, setPosition, content, setChapter, 
       setChapter(null);
     }
   }, [content.resource, reference.chapter, setChapter]);
+
   useEffect(() => {
     const handleContextMenu = (e, key, verseObjects) => {
+      e.preventDefault();
       setReferenceBlock({
         ...reference,
         type,
         verse: key,
         text: getVerseText(verseObjects),
       });
-      e.preventDefault();
       setPosition({
         mouseX: e.clientX - 2,
         mouseY: e.clientY - 4,
