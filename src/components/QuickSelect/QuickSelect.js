@@ -1,6 +1,6 @@
 import React from 'react';
 import { bibleList } from '../../config/base';
-
+import { useTranslation } from 'react-i18next';
 // import { AppContext } from '../../App.context';
 
 import {
@@ -23,13 +23,14 @@ function QuickSelect() {
   // const handleClose = () => {
   //   setOpen(false);
   // };
+  const { t } = useTranslation();
   const input = (
     <>
       <input name="city" list="cities" />
       <datalist id="cities">
         {bibleList.map((el) => (
           
-          <option key = {el.sort} value={el.identifier}></option>
+          <option key = {el.sort} value={t(el.identifier)}></option>
         ))}
       </datalist>
     </>
