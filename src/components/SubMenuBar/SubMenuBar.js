@@ -9,7 +9,7 @@ import {
   WorkspaceManager,
   SearchResources,
   ChapterSelect,
-  SelectLanguage,
+  SelectLanguage,QuickSelect
 } from '../../components';
 
 import {
@@ -64,6 +64,7 @@ function SubMenuBar() {
           <div className={classes.centerButtons}>
             <BookSelect />
             <ChapterSelect />
+            <QuickSelect />
           </div>
 
           <IconButton
