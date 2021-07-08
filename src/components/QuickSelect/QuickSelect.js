@@ -23,14 +23,30 @@ function QuickSelect() {
   // const handleClose = () => {
   //   setOpen(false);
   // };
+  const chapters =[1,2,3]
+  const verses =[1,2,3]
   const { t } = useTranslation();
   const input = (
     <>
-      <input name="city" list="cities" />
-      <datalist id="cities">
+      <input name="book" list="books" />
+      <datalist id="books">
         {bibleList.map((el) => (
           
           <option key = {el.sort} value={t(el.identifier)}></option>
+        ))}
+      </datalist>
+      <input name="chapter" list="chapters" />
+      <datalist id="chapters">
+        {chapters.map((el) => (
+          
+          <option key = {el.id} value={el}></option>
+        ))}
+      </datalist>
+      <input name="verse" list="verses" />
+      <datalist id="verses">
+        {verses.map((el) => (
+          
+          <option key = {el.id} value={el}></option>
         ))}
       </datalist>
     </>
