@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { bibleList } from '../../config/base';
 import { useTranslation } from 'react-i18next';
-// import { AppContext } from '../../App.context';
+import { AppContext } from '../../App.context';
+import { getBookChapters, getAllChapters } from '@texttree/tt-reference-rcl';
 
 import {
   // Button,
   // Dialog,
   // DialogTitle,
-  // Input,
+
+  TextField,
   //   DialogActions,
   // DialogContent,
   // DialogContentText,
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 function QuickSelect() {
   // const [open, setOpen] = useState(false);
-
+  const { state, actions } = useContext(AppContext);
+  const { referenceSelected } = state;
+  const { setReferenceSelected } = actions;
   // const handleOpen = () => {
   //   console.log(open);
   //   setOpen(!open);
@@ -23,32 +28,43 @@ function QuickSelect() {
   // const handleClose = () => {
   //   setOpen(false);
   // };
-  const chapters =[1,2,3]
-  const verses =[1,2,3]
+
+  const verses = [1, 2, 3];
   const { t } = useTranslation();
+  const chapters = Object.keys(getBookChapters(referenceSelected.bookId));
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      console.log(e.target.value);
+    }
+  };
   const input = (
     <>
-      <input name="book" list="books" />
-      <datalist id="books">
-        {bibleList.map((el) => (
-          
-          <option key = {el.sort} value={t(el.identifier)}></option>
-        ))}
-      </datalist>
-      <input name="chapter" list="chapters" />
-      <datalist id="chapters">
-        {chapters.map((el) => (
-          
-          <option key = {el.id} value={el}></option>
-        ))}
-      </datalist>
-      <input name="verse" list="verses" />
-      <datalist id="verses">
-        {verses.map((el) => (
-          
-          <option key = {el.id} value={el}></option>
-        ))}
-      </datalist>
+      <Autocomplete
+        options={bibleList}
+        getOptionLabel={(option) => t(option.identifier)}
+        style={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField
+            id={'book'}
+            {...params}
+            variant="outlined"
+            fullWidth
+            onKeyDown={onKeyDown}
+          />
+        )}
+      />
+      <Autocomplete
+        options={chapters}
+        getOptionLabel={(option) => t(option)}
+        style={{ width: 70 }}
+        renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
+      />
+      <Autocomplete
+        options={verses}
+        getOptionLabel={(option) => t(option)}
+        style={{ width: 70 }}
+        renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
+      />
     </>
   );
 
@@ -60,10 +76,10 @@ function QuickSelect() {
         <DialogContent>
           <DialogContentText>sometext0</DialogContentText> */}
 
-          {input}
-          {/* <DialogContentText>{/* {errorMessage}</DialogContentText> 
+      {input}
+      {/* <DialogContentText>{/* {errorMessage}</DialogContentText> 
         // </DialogContent> */}
-        {/* <DialogActions className={classes.actions}>
+      {/* <DialogActions className={classes.actions}>
         <Button
           onClick={handleCancel}
           variant="contained"
