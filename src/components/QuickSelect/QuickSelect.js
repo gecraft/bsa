@@ -3,14 +3,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
-import {
-  getBookChapters,
-  getAllChapters,
-  getBookNames,
-} from '@texttree/tt-reference-rcl';
+import { getBookChapters, getBookNames } from '@texttree/tt-reference-rcl';
 
 import {
-  setRef,
   // Button,
   // Dialog,
   // DialogTitle,
@@ -37,7 +32,11 @@ function QuickSelect() {
 
   const referenceBlock = getBookChapters(referenceSelected.bookId);
   const chapters = Object.keys(referenceBlock);
-  const verses = Object.values(referenceBlock[referenceSelected.chapter])
+
+  let verses = [];
+  for (let i = 1; i <= referenceBlock[referenceSelected.chapter]; i++) {
+    verses.push(String(i));
+  }
   console.log(verses);
   const { t } = useTranslation();
   const BOOKS = getBookNames(['ot', 'nt', 'obs']);
@@ -48,11 +47,10 @@ function QuickSelect() {
     translatedBooks[book] = t(book);
     translatedTitleBooks.push(t(book));
   }
-  const getBookIdByName=(books, name)=> {
+  const getBookIdByName = (books, name) => {
     return Object.keys(books).find((bookId) => books[bookId] === name);
-  }
-  // console.log(translatedTitleBooks);
- 
+  };
+
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (translatedTitleBooks.includes(e.target.value)) {
@@ -62,15 +60,15 @@ function QuickSelect() {
           verse: '1',
         });
       }
-      // console.log(e.target.value);
     }
   };
   const input = (
     <>
       <Autocomplete
+        id="books"
         options={translatedTitleBooks}
         getOptionLabel={(option) => option}
-        style={{ width: 300 }}
+        style={{ width: 300, backgroundColor: 'white' }}
         renderInput={(params) => (
           <TextField
             id={'book'}
@@ -82,12 +80,14 @@ function QuickSelect() {
         )}
       />
       <Autocomplete
+        id="chapters"
         options={chapters}
         getOptionLabel={(option) => option}
         style={{ width: 70 }}
         renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
       />
       <Autocomplete
+        id="verse"
         options={verses}
         getOptionLabel={(option) => option}
         style={{ width: 70 }}
