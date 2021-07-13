@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import { bibleList } from '../../config/base';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, i18n } from 'react-i18next';
+
 import { AppContext } from '../../App.context';
-import { getBookChapters, getAllChapters } from '@texttree/tt-reference-rcl';
+import {
+  getBookChapters,
+  getAllChapters,
+  getBookNames,
+} from '@texttree/tt-reference-rcl';
 
 import {
   // Button,
@@ -18,6 +23,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 function QuickSelect() {
   // const [open, setOpen] = useState(false);
+  const { i18n } = useTranslation();
+  console.log(i18n.language);
   const { state, actions } = useContext(AppContext);
   const { referenceSelected } = state;
   const { setReferenceSelected } = actions;
@@ -31,10 +38,27 @@ function QuickSelect() {
 
   const verses = [1, 2, 3];
   const { t } = useTranslation();
+  const BOOKS = getBookNames(['ot', 'nt', 'obs']);
+
+  const translatedBooks = Object.keys(BOOKS).map((book) => {
+    console.log (book)
+    // return {
+    // ...book,
+    // book.identifier,
+    // t(book.identifier)
+    // };
+  });
+
+  console.log(translatedBooks);
+  // const translatedBooks = Object.keys(BOOKS);
+  // const booksCompare = book =>{
+  //   if(book===)
+  // }
+  // console.log(BOOKS)
   const chapters = Object.keys(getBookChapters(referenceSelected.bookId));
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      console.log(e.target.value);
+      // console.log(e.target.value);
     }
   };
   const input = (
