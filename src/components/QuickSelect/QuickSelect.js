@@ -50,11 +50,7 @@ function QuickSelect() {
   });
 
   console.log(translatedBooks);
-  // const translatedBooks = Object.keys(BOOKS);
-  // const booksCompare = book =>{
-  //   if(book===)
-  // }
-  // console.log(BOOKS)
+  
   const chapters = Object.keys(getBookChapters(referenceSelected.bookId));
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
