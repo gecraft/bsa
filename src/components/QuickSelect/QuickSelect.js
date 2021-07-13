@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { bibleList } from '../../config/base';
-import { useTranslation, i18n } from 'react-i18next';
+
+import { useTranslation } from 'react-i18next';
 
 import { AppContext } from '../../App.context';
 import {
@@ -10,10 +10,10 @@ import {
 } from '@texttree/tt-reference-rcl';
 
 import {
+  setRef,
   // Button,
   // Dialog,
   // DialogTitle,
-
   TextField,
   //   DialogActions,
   // DialogContent,
@@ -23,8 +23,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 function QuickSelect() {
   // const [open, setOpen] = useState(false);
-  const { i18n } = useTranslation();
-  console.log(i18n.language);
+
   const { state, actions } = useContext(AppContext);
   const { referenceSelected } = state;
   const { setReferenceSelected } = actions;
@@ -36,32 +35,41 @@ function QuickSelect() {
   //   setOpen(false);
   // };
 
-  const verses = [1, 2, 3];
+  const referenceBlock = getBookChapters(referenceSelected.bookId);
+  const chapters = Object.keys(referenceBlock);
+  const verses = Object.values(referenceBlock[referenceSelected.chapter])
+  console.log(verses);
   const { t } = useTranslation();
   const BOOKS = getBookNames(['ot', 'nt', 'obs']);
 
-  const translatedBooks = Object.keys(BOOKS).map((book) => {
-    console.log (book)
-    // return {
-    // ...book,
-    // book.identifier,
-    // t(book.identifier)
-    // };
-  });
-
-  console.log(translatedBooks);
-  
-  const chapters = Object.keys(getBookChapters(referenceSelected.bookId));
+  let translatedBooks = {};
+  let translatedTitleBooks = [];
+  for (let book in BOOKS) {
+    translatedBooks[book] = t(book);
+    translatedTitleBooks.push(t(book));
+  }
+  const getBookIdByName=(books, name)=> {
+    return Object.keys(books).find((bookId) => books[bookId] === name);
+  }
+  // console.log(translatedTitleBooks);
+ 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
+      if (translatedTitleBooks.includes(e.target.value)) {
+        setReferenceSelected({
+          bookId: getBookIdByName(translatedBooks, e.target.value),
+          chapter: '1',
+          verse: '1',
+        });
+      }
       // console.log(e.target.value);
     }
   };
   const input = (
     <>
       <Autocomplete
-        options={bibleList}
-        getOptionLabel={(option) => t(option.identifier)}
+        options={translatedTitleBooks}
+        getOptionLabel={(option) => option}
         style={{ width: 300 }}
         renderInput={(params) => (
           <TextField
@@ -75,13 +83,13 @@ function QuickSelect() {
       />
       <Autocomplete
         options={chapters}
-        getOptionLabel={(option) => t(option)}
+        getOptionLabel={(option) => option}
         style={{ width: 70 }}
         renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
       />
       <Autocomplete
         options={verses}
-        getOptionLabel={(option) => t(option)}
+        getOptionLabel={(option) => option}
         style={{ width: 70 }}
         renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
       />
