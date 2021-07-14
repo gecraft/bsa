@@ -64,7 +64,16 @@ function QuickSelect() {
   };
   const input = (
     <>
-      <Autocomplete
+          <TextField
+            id={'book'}
+            style={{ width: 300, backgroundColor: 'white' }}
+            variant="outlined"
+            fullWidth
+            onKeyDown={onKeyDown}
+            
+          />
+
+      {/* <Autocomplete
         id="books"
         options={translatedTitleBooks}
         getOptionLabel={(option) => option}
@@ -78,8 +87,8 @@ function QuickSelect() {
             onKeyDown={onKeyDown}
           />
         )}
-      />
-      <Autocomplete
+      /> */}
+      {/* <Autocomplete
         id="chapters"
         options={chapters}
         getOptionLabel={(option) => option}
@@ -92,8 +101,8 @@ function QuickSelect() {
         getOptionLabel={(option) => option}
         style={{ width: 70 }}
         renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
-      />
-    </>
+      />*/}
+    </> 
   );
 
   return (
