@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 function QuickSelect() {
   // const [open, setOpen] = useState(false);
-
+  const [inputValue, setInputValue] = useState('');
   const { state, actions } = useContext(AppContext);
   const { referenceSelected } = state;
   const { setReferenceSelected } = actions;
@@ -37,7 +37,7 @@ function QuickSelect() {
   for (let i = 1; i <= referenceBlock[referenceSelected.chapter]; i++) {
     verses.push(String(i));
   }
-  console.log(verses);
+
   const { t } = useTranslation();
   const BOOKS = getBookNames(['ot', 'nt', 'obs']);
 
@@ -50,7 +50,9 @@ function QuickSelect() {
   const getBookIdByName = (books, name) => {
     return Object.keys(books).find((bookId) => books[bookId] === name);
   };
-
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (translatedTitleBooks.includes(e.target.value)) {
@@ -62,16 +64,31 @@ function QuickSelect() {
       }
     }
   };
+
+  console.log(translatedTitleBooks);
+
+  if (inputValue) {
+    switch (inputValue.length) {
+      case '1':
+        const newBooks = translatedTitleBooks.filter((e) => inputValue === e[0]);
+        console.log(newBooks);
+    }
+  }
+
+  //  const newBooks =  translatedTitleBooks.map((e)=> (
+
+  //  )
+  //  )
   const input = (
     <>
-          <TextField
-            id={'book'}
-            style={{ width: 300, backgroundColor: 'white' }}
-            variant="outlined"
-            fullWidth
-            onKeyDown={onKeyDown}
-            
-          />
+      <TextField
+        id={'book'}
+        style={{ width: 300, backgroundColor: 'white' }}
+        variant="outlined"
+        fullWidth
+        onKeyDown={onKeyDown}
+        onChange={handleChange}
+      />
 
       {/* <Autocomplete
         id="books"
@@ -102,7 +119,7 @@ function QuickSelect() {
         style={{ width: 70 }}
         renderInput={(params) => <TextField {...params} variant="outlined" fullWidth />}
       />*/}
-    </> 
+    </>
   );
 
   return (
