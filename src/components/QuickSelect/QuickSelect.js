@@ -65,13 +65,18 @@ function QuickSelect() {
     }
   };
 
-  console.log(translatedTitleBooks);
+  // console.log(translatedTitleBooks);
 
   if (inputValue) {
-    switch (inputValue.length) {
+    switch (String(inputValue.length)) {
       case '1':
-        const newBooks = translatedTitleBooks.filter((e) => inputValue === e[0]);
+        const newBooks = translatedTitleBooks.filter(
+          (e) => inputValue === e[0].toLowerCase()
+        );
         console.log(newBooks);
+        break;
+      default:
+        console.log('no book');
     }
   }
 
