@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.11.4",
-    "@texttree/tt-reference-rcl": "^1.1.1",
+    "@texttree/tt-reference-rcl": "^1.2.0",
     "@texttree/user-notes-rcl": "^0.5.3",
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
