@@ -14,7 +14,7 @@ import {
   // DialogContent,
   // DialogContentText,
 } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
 
 function QuickSelect() {
   // const [open, setOpen] = useState(false);
@@ -31,7 +31,7 @@ function QuickSelect() {
   // };
 
   const referenceBlock = getBookChapters(referenceSelected.bookId);
-  const chapters = Object.keys(referenceBlock);
+  // const chapters = Object.keys(referenceBlock);
 
   let verses = [];
   for (let i = 1; i <= referenceBlock[referenceSelected.chapter]; i++) {
@@ -66,15 +66,27 @@ function QuickSelect() {
   };
 
   // console.log(translatedTitleBooks);
-
+  const [newBooks, setNewBooks] = useState();
   if (inputValue) {
     switch (String(inputValue.length)) {
       case '1':
-        const newBooks = translatedTitleBooks.filter(
+        const _firstSymbolBooks = translatedTitleBooks.filter(
           (e) => inputValue === e[0].toLowerCase()
         );
-        console.log(newBooks);
+        console.log(
+          `кол-во книг = ${_firstSymbolBooks.length} список ${_firstSymbolBooks}`
+        );
+        
         break;
+      // case '2':
+      //   const _secondSymbolBooks = newBooks.filter((e) =>
+      //     e.slice(1).split().includes(inputValue[1])
+      //   );
+      //   console.log(
+      //     `кол-во книг = ${_secondSymbolBooks.length} список ${_secondSymbolBooks}`
+      //   );
+
+      //   break;
       default:
         console.log('no book');
     }
