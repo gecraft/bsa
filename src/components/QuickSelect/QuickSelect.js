@@ -66,27 +66,32 @@ function QuickSelect() {
   };
 
   // console.log(translatedTitleBooks);
-  const [newBooks, setNewBooks] = useState();
+  
+  const firstSymbol = (_books, _inputValue) => {
+    return _books.filter((e) => _inputValue === e[0].toLowerCase());
+  };
+
   if (inputValue) {
+    let _mainSymbolBooks = [];
     switch (String(inputValue.length)) {
       case '1':
-        const _firstSymbolBooks = translatedTitleBooks.filter(
-          (e) => inputValue === e[0].toLowerCase()
+        _mainSymbolBooks = firstSymbol(translatedTitleBooks, inputValue);
+        console.log(
+          `кол-во книг = ${_mainSymbolBooks.length} список ${_mainSymbolBooks}`
+        );
+
+        break;
+        
+      case '2':
+        console.log(_mainSymbolBooks);
+        const _secondSymbolBooks = _mainSymbolBooks.filter((e) =>
+          e.slice(1).split().includes(inputValue[1])
         );
         console.log(
-          `кол-во книг = ${_firstSymbolBooks.length} список ${_firstSymbolBooks}`
+          `кол-во книг = ${_secondSymbolBooks.length} список ${_secondSymbolBooks}`
         );
-        
-        break;
-      // case '2':
-      //   const _secondSymbolBooks = newBooks.filter((e) =>
-      //     e.slice(1).split().includes(inputValue[1])
-      //   );
-      //   console.log(
-      //     `кол-во книг = ${_secondSymbolBooks.length} список ${_secondSymbolBooks}`
-      //   );
 
-      //   break;
+        break;
       default:
         console.log('no book');
     }
